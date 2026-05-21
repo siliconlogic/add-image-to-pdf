@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to Add Image to PDF — pin the extension and start adding images to PDFs in your browser.">
+  <title>Welcome to Add Image to PDF</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">
+        <img src="images/icon-64.png" alt="Add Image to PDF" width="36" height="36">
+        <span>Add Image to PDF</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="mailto:support@example.com">Contact us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="welcome-page">
+    <div class="container welcome-container">
+      <h1 class="welcome-title">
+        <span class="welcome-emoji" aria-hidden="true">🎉</span>
+        Now you have a great<br>
+        way to add images to PDFs
+      </h1>
+
+      <ol class="welcome-steps">
+        <li class="welcome-step">
+          <p class="welcome-step-text">
+            1. Pin the extension for quick access to Add Image to PDF.
+          </p>
+          <figure class="welcome-shot">
+            <img src="images/screeshot1.png" alt="Chrome toolbar with the Extensions puzzle-piece icon open and the pin button next to Add Image to PDF highlighted." width="640" height="360" loading="lazy">
+          </figure>
+        </li>
+
+        <li class="welcome-step">
+          <p class="welcome-step-text">
+            2. Simply click on the extension icon to open Add Image to PDF.
+          </p>
+          <figure class="welcome-shot">
+            <img src="images/screeshot2.png" alt="Chrome toolbar with the pinned Add Image to PDF extension icon highlighted, ready to click." width="640" height="360" loading="lazy">
+          </figure>
+        </li>
+      </ol>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/icon-64.png" alt="" width="24" height="24">
+        <span>Add Image to PDF</span>
+      </div>
+      <nav class="footer-nav">
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:support@example.com">Contact</a>
+        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener">Chrome Web Store</a>
+      </nav>
+      <p class="footer-copy">© 2026 Add Image to PDF</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+  <script>
+    window.addEventListener('load', () => {
+      if (typeof confetti !== 'function') return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const colors = ['#ea580c', '#fdba74', '#fed7aa', '#fff7ed', '#e63946', '#f59e0b'];
+      const duration = 2200;
+      const end = Date.now() + duration;
+
+      // Two corner streams continuously launching for the full duration.
+      (function frame() {
+        confetti({
+          particleCount: 4,
+          angle: 60,
+          spread: 70,
+          startVelocity: 55,
+          origin: { x: 0, y: 0.85 },
+          colors,
+        });
+        confetti({
+          particleCount: 4,
+          angle: 120,
+          spread: 70,
+          startVelocity: 55,
+          origin: { x: 1, y: 0.85 },
+          colors,
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+
+      // Three fireworks bursts above the title for the "wow" moment.
+      const burst = (x, delay) => setTimeout(() => {
+        confetti({
+          particleCount: 90,
+          spread: 360,
+          startVelocity: 32,
+          ticks: 120,
+          gravity: 0.7,
+          scalar: 1.1,
+          origin: { x, y: 0.35 },
+          colors,
+        });
+      }, delay);
+      burst(0.5, 150);
+      burst(0.25, 600);
+      burst(0.75, 900);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sorry to see you go. Tell us why you uninstalled Add Image to PDF.">
+  <title>Sorry to see you go — Add Image to PDF</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">
+        <img src="images/icon-64.png" alt="Add Image to PDF" width="36" height="36">
+        <span>Add Image to PDF</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="uninstall-page">
+    <div class="container">
+      <div class="uninstall-card">
+
+        <!-- Form view -->
+        <div id="form-view">
+          <h1 class="uninstall-title">Sorry to see you go</h1>
+          <p class="uninstall-sub">
+            We'd love to know what didn't work for you. Your feedback helps us improve — it takes 30 seconds.
+          </p>
+
+          <form id="feedback-form" class="uninstall-form" novalidate>
+            <div class="form-group">
+              <span class="form-label">Why did you uninstall?</span>
+              <ul class="radio-list">
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="hard_to_use" required>
+                    <span>It was too hard to use</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="missing_feature">
+                    <span>It was missing a feature I needed</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="not_working">
+                    <span>It didn't work properly</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="too_slow">
+                    <span>It was too slow</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="found_better">
+                    <span>I found a better alternative</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="no_longer_need">
+                    <span>I no longer need this kind of tool</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="radio-item">
+                    <input type="radio" name="reason" value="other">
+                    <span>Other reason</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="details">Anything else? (optional)</label>
+              <textarea id="details" name="details" class="form-textarea" placeholder="Tell us more so we can do better…"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email <span style="color:var(--muted);font-weight:400">(optional, if you'd like a reply)</span></label>
+              <input id="email" name="email" type="email" class="form-input" placeholder="you@example.com">
+              <span class="form-hint">We'll only use this to follow up on your feedback.</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">Send feedback</button>
+          </form>
+        </div>
+
+        <!-- Thank you view -->
+        <div id="thanks-view" class="thank-you">
+          <div class="thank-you-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2>Thank you</h2>
+          <p>Your feedback has been received. We genuinely appreciate it.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/icon-64.png" alt="" width="24" height="24">
+        <span>Add Image to PDF</span>
+      </div>
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:support@example.com">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 Add Image to PDF</p>
+    </div>
+  </footer>
+
+  <script>
+    // Capture query params Chrome appends to uninstall URL
+    // Chrome adds: ?version=X.X.X&extension_id=...
+    const params = new URLSearchParams(window.location.search);
+    const extensionVersion = params.get('version') || '';
+    const extensionId = params.get('extension_id') || '';
+
+    const form = document.getElementById('feedback-form');
+    const formView = document.getElementById('form-view');
+    const thanksView = document.getElementById('thanks-view');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        reason: form.reason.value,
+        details: form.details.value.trim(),
+        email: form.email.value.trim(),
+        extension_version: extensionVersion,
+        extension_id: extensionId,
+        user_agent: navigator.userAgent,
+        timestamp: new Date().toISOString()
+      };
+
+      // === Choose ONE submission method below ===
+
+      // Option A: Formspree (easiest, free up to 50/mo)
+      // Sign up at formspree.io and replace the URL with your form endpoint.
+      const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          formView.style.display = 'none';
+          thanksView.classList.add('show');
+        } else {
+          alert('Sorry, something went wrong. Please email us at support@example.com');
+        }
+      } catch (err) {
+        alert('Sorry, something went wrong. Please email us at support@example.com');
+      }
+    });
+  </script>
+
+</body>
+</html>
