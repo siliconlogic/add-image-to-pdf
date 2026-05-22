@@ -24,7 +24,6 @@ Marketing, welcome, uninstall, and privacy pages for the **Add Image to PDF** Ch
 ## Before going live — checklist
 
 1. **Replace remaining placeholders** (search the repo for these strings):
-   - `support@example.com` → your real support email (in all HTML footers + the "Contact us" links)
    - `https://chromewebstore.google.com/` → your actual Chrome Web Store listing URL
    - `YOUR_FORM_ID` in `uninstall.html` → your Formspree form ID
 
