@@ -97,7 +97,10 @@
               <span class="form-hint">We'll only use this to follow up on your feedback.</span>
             </div>
 
-            <button type="submit" class="btn btn-primary form-submit">Send feedback</button>
+            <button type="submit" class="btn btn-primary form-submit">
+              <span class="btn-spinner" aria-hidden="true"></span>
+              <span class="btn-label">Send feedback</span>
+            </button>
           </form>
         </div>
 
@@ -142,8 +145,16 @@
     const formView = document.getElementById('form-view');
     const thanksView = document.getElementById('thanks-view');
 
+    const submitBtn = form.querySelector('.form-submit');
+    const btnLabel = submitBtn.querySelector('.btn-label');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (submitBtn.disabled) return;
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('is-loading');
+      btnLabel.textContent = 'Sending…';
 
       const data = {
         reason: form.reason.value,
@@ -155,10 +166,6 @@
         timestamp: new Date().toISOString()
       };
 
-      // === Choose ONE submission method below ===
-
-      // Option A: Formspree (easiest, free up to 50/mo)
-      // Sign up at formspree.io and replace the URL with your form endpoint.
       const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdbyyez';
 
       try {
@@ -175,10 +182,13 @@
           formView.style.display = 'none';
           thanksView.classList.add('show');
         } else {
-          alert('Sorry, something went wrong. Please email us at flawlessdrive7@gmail.com');
+          throw new Error('Bad response');
         }
       } catch (err) {
         alert('Sorry, something went wrong. Please email us at flawlessdrive7@gmail.com');
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
+        btnLabel.textContent = 'Send feedback';
       }
     });
   </script>

@@ -140,6 +140,28 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
 }
+
+/* Disabled / loading state for any .btn */
+.btn:disabled,
+.btn.is-loading {
+  cursor: not-allowed;
+  opacity: 0.85;
+  transform: none;
+  pointer-events: none;
+}
+.btn-spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+.btn.is-loading .btn-spinner { display: inline-block; }
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
 .btn-secondary {
   background: var(--surface);
   color: var(--ink);
