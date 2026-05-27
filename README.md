@@ -7,7 +7,8 @@ Marketing, welcome, uninstall, and privacy pages for the **Add Image to PDF** Ch
 ```
 /
 ├── index.html          ← public home page (Install the extension)
-├── welcome.html        ← shown after install — pin & launch guide
+├── welcome.html        ← shown after install in Chrome — pin & launch guide
+├── welcome-firefox.html← shown after install in Firefox — Firefox pin flow
 ├── uninstall.html      ← shown when the user uninstalls (feedback form)
 ├── privacy.html        ← privacy policy
 ├── 404.html
@@ -64,11 +65,10 @@ Marketing, welcome, uninstall, and privacy pages for the **Add Image to PDF** Ch
 
 ## Extension integration
 
-In your extension's background service worker:
+### Chrome (Manifest V3)
 
 ```js
-// background.js (Manifest V3)
-
+// background.js
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
     chrome.tabs.create({ url: 'https://add-image-to-pdf.xyz/welcome.html' });
@@ -78,13 +78,37 @@ chrome.runtime.onInstalled.addListener((details) => {
 chrome.runtime.setUninstallURL('https://add-image-to-pdf.xyz/uninstall.html');
 ```
 
-And in `manifest.json`:
-
 ```json
 {
   "manifest_version": 3,
   "homepage_url": "https://add-image-to-pdf.xyz/",
   "background": { "service_worker": "background.js" }
+}
+```
+
+### Firefox
+
+Same WebExtension API, but point the install URL at the Firefox-specific page:
+
+```js
+// background.js
+browser.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    browser.tabs.create({ url: 'https://add-image-to-pdf.xyz/welcome-firefox.html' });
+  }
+});
+
+browser.runtime.setUninstallURL('https://add-image-to-pdf.xyz/uninstall.html');
+```
+
+```json
+{
+  "manifest_version": 3,
+  "homepage_url": "https://add-image-to-pdf.xyz/",
+  "background": { "scripts": ["background.js"] },
+  "browser_specific_settings": {
+    "gecko": { "id": "add-image-to-pdf@flawlessdrive7" }
+  }
 }
 ```
 
